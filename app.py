@@ -4,9 +4,10 @@ from utils.parsers import parse_gallons, parse_date, parse_location
 from bs4 import BeautifulSoup
 
 
-def create_csv():
+def generate_csv():
     """ Relevent mark up was taken from
     https://en.wikipedia.org/wiki/List_of_pipeline_accidents_in_the_United_States_in_the_21st_century
+    starting with first <h3> tag
     """
     markup_string = mark_up_as_string('wiki_markup.html')
     soup = BeautifulSoup(markup_string, 'html.parser')
@@ -54,4 +55,4 @@ def create_csv():
     write_to_csv(data, header, 'pipe-data.csv')
 
 
-create_csv()
+generate_csv()

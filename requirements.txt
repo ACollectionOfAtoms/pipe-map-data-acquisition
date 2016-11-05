@@ -1,0 +1,8 @@
+beautifulsoup4==4.5.1
+click==6.6
+decorator==4.0.10
+geopy==1.11.0
+ratelim==0.1.6
+requests==2.11.1
+six==1.10.0
+wikipedia==1.4.0
