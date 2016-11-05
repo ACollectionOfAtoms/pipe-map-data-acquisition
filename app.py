@@ -50,6 +50,7 @@ def create_csv():
                     accident_type
                 ]
                 data.append(row)
+
     write_to_csv(data, header, 'pipe-data.csv')
 
 

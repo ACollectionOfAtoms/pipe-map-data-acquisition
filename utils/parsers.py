@@ -2,7 +2,7 @@ from geopy.geocoders import Nominatim
 from utils import strip_punc
 from refs.states import states_dict
 from refs.months import months_list
-""" TODO: Add method to parse citations """
+""" TODO: Add method to parse citations, barrels """
 
 
 def parse_gallons(description):
