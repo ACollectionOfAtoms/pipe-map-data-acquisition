@@ -1,49 +1,12 @@
-from states import states_dict
-from months import months_list
-from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
-import string
+from utils import strip_punc
+from refs.states import states_dict
+from refs.months import months_list
+""" TODO: Add method to parse citations """
 
-
-def mark_up_as_string(f):
-    with open(f, 'r') as mu:
-        markup = mu.read().replace('\n', '')
-    return markup
-
-def read_wiki_data():
-    markup_string = mark_up_as_string('wiki_markup.html')
-    soup = BeautifulSoup(markup_string, 'html.parser')
-    content = soup.contents
-    data = []
-    for ch in content:
-        if ch.name == 'h3':
-            year = ch.text[:4]
-        if ch.name == 'ul':
-            ul = ch
-            for li in ul.contents:
-                description = li.text
-                if 'natural gas' in description.lower():
-                    accident_type = 'gas'
-                else:
-                    accident_type = 'oil'
-                print extract_gallons(description)
-                # for child in li.children: # need to get ref links
-                #     print child
-                # city, state, lat, lng = extract_location(description)
-                # print description
-                # print city
-                # print state
-                # print lat
-                # print lng
-
-def strip_punc(s):
-    clean_string = s
-    for ch in string.punctuation:
-        clean_string = clean_string.strip(ch)
-    return clean_string
 
 def parse_gallons(description):
-    """ returns number before string 'gallons' within description """
+    """ returns number before the 'gallons' substring within description """
     num_gallons = 'N/A'
     description_list = [strip_punc(s) for s in description.split()]
     for word in description_list:
@@ -62,7 +25,7 @@ def parse_gallons(description):
 def parse_date(description, year):
     """Return string in YEAR-MONTH-DATE format.
        Contingent on month being followed by an int
-       eg. March 5"""
+       e.g. March 5"""
     description_list = [strip_punc(s) for s in description.split()]
     for month in months_list: # Assume month is properly captialized
         if month in description_list:
@@ -95,5 +58,3 @@ def parse_location(description):
                 lat = location.latitude
                 lng = location.longitude
             return city, state, lat, lng
-
-read_wiki_data()
