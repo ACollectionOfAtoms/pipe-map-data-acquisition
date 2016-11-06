@@ -29,7 +29,6 @@ states_dict = {
         'MP': 'Northern Mariana Islands',
         'MS': 'Mississippi',
         'MT': 'Montana',
-        'NA': 'National',
         'NC': 'North Carolina',
         'ND': 'North Dakota',
         'NE': 'Nebraska',

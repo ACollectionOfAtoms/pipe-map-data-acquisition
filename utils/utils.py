@@ -1,7 +1,11 @@
 import string
 import csv
-""" TODO: add function to remove citations at end of descriptions
-    regex is somthing like: \[[\d]*\] """
+import re
+
+
+def remove_citations(s):
+    cleaner_string = re.sub('\[[\d]*\]', '', s)
+    return cleaner_string
 
 def strip_punc(s):
     clean_string = s
