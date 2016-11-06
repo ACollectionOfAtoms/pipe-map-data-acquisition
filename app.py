@@ -1,5 +1,4 @@
-from utils.utils import mark_up_as_string
-from utils.utils import write_to_csv
+from utils.utils import mark_up_as_string, write_to_csv, remove_citations
 from utils.parsers import parse_gallons, parse_date, parse_location
 from bs4 import BeautifulSoup
 import progressbar
@@ -45,7 +44,7 @@ def generate_csv():
             for li in ul.contents:
                 progress_i += 1
                 bar.update(progress_i)
-                description = li.text
+                description = remove_citations(li.text)
                 gallons = parse_gallons(description)
                 location_results = parse_location(description)
                 if location_results is None:
@@ -72,7 +71,7 @@ def generate_csv():
                     lng,
                     accident_type
                 ]
-                row = [s.encode('utf-8') for s in row]
+                row = [s.encode('utf-8') for s in row]  # Required for writing to csv
                 data.append(row)
                 bar.finish()
     write_to_csv(data, header, 'pipe-data.csv')
