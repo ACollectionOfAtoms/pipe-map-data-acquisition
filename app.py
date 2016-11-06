@@ -50,12 +50,12 @@ def generate_csv():
                 location_results = parse_location(description)
                 if location_results is None:
                     skipped += 1
-                    break  # We failed to get location data!
+                    continue  # We failed to get location data!
                 city, state, lat, lng = location_results
                 date = parse_date(description, year)
                 if date is None:
                     skipped += 1
-                    break  # No date? :(
+                    continue  # No date? :(
                 ref_link = 'N/A' # TODO: make get_ref parser
                 accident_type = 'oil'
                 if 'natural gas' in description.lower():
