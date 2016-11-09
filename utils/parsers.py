@@ -1,4 +1,4 @@
-from geopy.geocoders import GoogleV3
+from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderServiceError
 from utils import strip_punc, remove_citations
 from refs.states import states_dict
@@ -32,6 +32,7 @@ def parse_date(description, year):
        e.g. March 5"""
     description = remove_citations(description)
     description_list = [strip_punc(s) for s in description.split()]
+    # TODO: month_list is sorted, this can be optimized.
     for month in months_list: # Assume month is properly captialized
         if month in description_list:
             month_num = months_list.index(month) + 1  # Compensate for zero index
@@ -48,7 +49,7 @@ def init_geolocator(attempt=0, max_retries=8):
     """ Recursively attempt geolocator intialization """
     if attempt < max_retries:
         try:
-            geolocator = GoogleV3(timeout=20)
+            geolocator = Nominatim(timeout=20)
             return geolocator
         except GeocoderServiceError:
             time.sleep(2)

@@ -2,6 +2,7 @@ from utils.utils import mark_up_as_string, write_to_csv, remove_citations
 from utils.parsers import parse_gallons, parse_date, parse_location
 from bs4 import BeautifulSoup
 import progressbar
+from uuid import uuid4
 
 
 def generate_csv():
@@ -18,6 +19,7 @@ def generate_csv():
     soup = BeautifulSoup(markup_string, 'html.parser')
     content = soup.contents
     header = [
+        'id',
         'city',
         'state',
         'ref_link',
@@ -42,6 +44,7 @@ def generate_csv():
             bar.start()
 
             for li in ul.contents:
+                uuid = str(uuid4())
                 progress_i += 1
                 bar.update(progress_i)
                 description = remove_citations(li.text)
@@ -61,6 +64,7 @@ def generate_csv():
                     accident_type = 'gas'
 
                 row = [
+                    uuid,
                     city,
                     state,
                     ref_link,
