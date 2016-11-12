@@ -6,7 +6,7 @@ from uuid import uuid4
 
 
 def generate_csv():
-    """ Relevent mark up was taken from
+    """ Relevant mark up was taken from
     https://en.wikipedia.org/wiki/List_of_pipeline_accidents_in_the_United_States_in_the_21st_century
     starting with first <h3> tag
 
@@ -19,7 +19,7 @@ def generate_csv():
     soup = BeautifulSoup(markup_string, 'html.parser')
     content = soup.contents
     header = [
-        'id',
+        'uuid',
         'city',
         'state',
         'ref_link',

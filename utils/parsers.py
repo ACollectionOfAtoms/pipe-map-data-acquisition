@@ -1,4 +1,4 @@
-from geopy.geocoders import Nominatim
+from geopy.geocoders import GoogleV3
 from geopy.exc import GeocoderServiceError
 from utils import strip_punc, remove_citations
 from refs.states import states_dict
@@ -49,7 +49,7 @@ def init_geolocator(attempt=0, max_retries=8):
     """ Recursively attempt geolocator intialization """
     if attempt < max_retries:
         try:
-            geolocator = Nominatim(timeout=20)
+            geolocator = GoogleV3(timeout=20)
             return geolocator
         except GeocoderServiceError:
             time.sleep(2)
